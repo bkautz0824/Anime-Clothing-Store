@@ -6,6 +6,8 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/lodash": "^4.14.191",
+    "@types/styled-components": "^5.1.26",
     "axios": "^1.2.2",
     "bcrypt": "^5.1.0",
     "config": "^3.3.8",

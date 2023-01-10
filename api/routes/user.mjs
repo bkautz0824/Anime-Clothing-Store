@@ -49,9 +49,9 @@ const getOneUser = async(req, res) => {
     if (!mongoose.isValidObjectId(req.params.id)) return res.status(401).send('ID input is empty');
   try { 
     return await User.findOne({ _id: req.params.id })
-    .populate("item_listings")
+    .populate("item_listings cart").lean()
     .exec((err, item) => {
-      if(!err) return res.send(_.pick(item, ['_id', 'username', 'item_listings', 'created_at', 'updated_at']))
+      if(!err) return res.send(_.pick(item, ['_id', 'username', 'item_listings', 'created_at', 'updated_at', 'cart']))
     }
     )} 
     catch(err) { return res.status(404).send('User not found 1')}
@@ -63,10 +63,13 @@ const addProductToCart = async(req, res) => {
   let user 
   let product
   try{
-    await User.findOne({ id: req.body.user_id}).then((res) => user = res)
-    await Product.findOne({ id: req.body.product_id}).then((res) => user = res)
+    await User.findOne({ _id: req.body.user_id}).then((res) => user = res).catch((err) => console.log(err))
+    await Product.findOne({ _id: req.body.product_id}).then((res) => product = res).catch((err) => console.log(err))
+    console.log(user, product)
     if(!user || !product) return res.status(404).send("User or Product could not be found")
-
+    user.cart.push(product._id) 
+    await user.save()
+    return res.send(user.cart)
   }
   catch(err){
     return res.status(400).send(err)
@@ -75,4 +78,26 @@ const addProductToCart = async(req, res) => {
 }
 
 userRouter.post('/add-to-cart', addProductToCart)
+
+const removeFromCart = async(req, res) => {
+  let user
+  let product
+  try{
+    await User.findOne({ _id: req.body.user_id}).then((res) => user = res).catch((err) => console.log(err))
+    await Product.findOne({ _id: req.body.product_id}).then((res) => product = res).catch((err) => console.log(err))
+    console.log(user, product)
+    const productIndex = user.cart.findIndex(item => item.equals(req.body.product_id))
+    console.log(productIndex)
+    if(productIndex === -1) return res.status(404).send("Product is not found in cart")
+    user.cart.splice(productIndex, 1)
+    await user.save()
+    return res.send(user)
+
+  }catch(err){
+    return res.status(400).send(err)
+  }
+}
+
+userRouter.delete('/remove-from-cart', removeFromCart)
+
 export default userRouter
