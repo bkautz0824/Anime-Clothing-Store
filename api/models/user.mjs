@@ -28,7 +28,11 @@ const User = mongoose.model("User", new mongoose.Schema({
     }],
     items_saved: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Products"
+        ref: Product
+    }],
+    cart: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: Product
     }]
 }, snakeCaseStamps
 ))

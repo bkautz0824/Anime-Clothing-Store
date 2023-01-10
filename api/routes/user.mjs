@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import express from "express";
 import User from "../models/user.mjs";
+import Product from "../models/product.mjs";
 import _ from "lodash"
 
 const userRouter = express.Router()
@@ -58,4 +59,20 @@ const getOneUser = async(req, res) => {
 
 userRouter.get('/:id', getOneUser)
 
+const addProductToCart = async(req, res) => {
+  let user 
+  let product
+  try{
+    await User.findOne({ id: req.body.user_id}).then((res) => user = res)
+    await Product.findOne({ id: req.body.product_id}).then((res) => user = res)
+    if(!user || !product) return res.status(404).send("User or Product could not be found")
+
+  }
+  catch(err){
+    return res.status(400).send(err)
+  }
+
+}
+
+userRouter.post('/add-to-cart', addProductToCart)
 export default userRouter
