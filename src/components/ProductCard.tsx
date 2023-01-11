@@ -21,10 +21,24 @@ const ProductPrice = styled.p`
   font-size: 1.125rem;
   color: #333;
 `;
+const AddToCart = styled.button`
+  width: 100px;
+  height:auto;
 
+`
+interface ProductCardProps {
+  name: string;
+  price: number;
+  image: string;
+  id: number;
+}
 
-const ProductCard = ({ name, price, image }) => {
+const ProductCard:React.FunctionComponent<ProductCardProps> = ({ id, name, price, image }) => {
   const [imageIsLoaded, setImageIsLoaded] = React.useState(false)
+
+  // const addToCart = (id) => {
+
+  // }
 
   return(
     <ProductItem style={imageIsLoaded ? {} : {display:"none"}}>
@@ -32,6 +46,11 @@ const ProductCard = ({ name, price, image }) => {
       <div>
         <ProductName>{name}</ProductName>
         <ProductPrice>${price}</ProductPrice>
+        <AddToCart
+          // onClick={(id) => addToCart(id)}
+        >
+          Add to Cart
+        </AddToCart>
       </div>
     </ProductItem>
   )}

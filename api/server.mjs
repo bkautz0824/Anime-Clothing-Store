@@ -5,6 +5,7 @@ import 'dotenv/config'
 import path from 'path'
 import userRouter from './routes/user.mjs';
 import productRouter from './routes/product.mjs';
+import authRouter from './routes/auth.mjs';
 
 import {fileURLToPath} from 'url';
 const __filename = fileURLToPath(import.meta.url);
@@ -22,7 +23,7 @@ db.connect()
 
 app.use("/users", userRouter)
 app.use("/products", productRouter)
-
+app.use("/auth", authRouter)
 
 
 

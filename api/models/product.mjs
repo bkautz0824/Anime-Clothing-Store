@@ -40,7 +40,11 @@ const Product = mongoose.model("Product", new mongoose.Schema({
     seller:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Users"
-    }
+    },
+    sizes:{
+        type: {S:Number, M:Number, L:Number, XL:Number}
+    },
+    
 
 
 }, snakeCaseStamps 

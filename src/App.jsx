@@ -4,6 +4,7 @@ import { Container } from "./views/Home";
 import MainRoutes from "./routes/main-routes";
 import { NavContainer } from "./views/Home";
 import { Link } from "react-router-dom";
+import { verify } from "./api-helper/auth-requests";
 
 const NavBar = () => {
 
@@ -22,6 +23,10 @@ const NavBar = () => {
 }
 
 function App() {
+  React.useEffect(() => {
+    verify()
+  }, [])
+
   return (
 
     <Container>

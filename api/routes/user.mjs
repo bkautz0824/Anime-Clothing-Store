@@ -21,7 +21,7 @@ const createUser = async(req, res) => {
     await user.save();
     console.log('RUNNING SAVE')
  
-  secret = process.env.TOKEN_SECRET ? process.env.TOKEN_SECRET : global.TokenSecret
+  secret = process.env.TOKEN_SECRET ? process.env.TOKEN_SECRET : 'secret'
     const token = jwt.sign({ _id: user._id }, secret);
     
   return res.header('x-auth-token', token).send(_.assign(_.pick(user, ['_id', 'username', 'password']), {token: token}));

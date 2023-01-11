@@ -7,6 +7,7 @@ const ProductItem = styled.li`
   margin-bottom: 1rem;
   flex-direction: row;
   padding: 0 2rem;
+  
 `;
 const ProductImage = styled.img`
   width: 80px;

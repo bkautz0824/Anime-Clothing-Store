@@ -1,4 +1,18 @@
 import * as React from 'react';
+import styled from 'styled-components';
+
+const CartInfoContainer = styled.div`
+  margin: 2rem 0;
+  
+  border: 1px solid black;
+  p{
+    padding: 1rem 2rem;
+  }
+
+`
+
+
+
 
 export interface ICartInformationProps {
     cart: any
@@ -14,9 +28,9 @@ React.useEffect(() => {
 }, [])
 
   return (
-    <div>
+    <CartInfoContainer>
       <p>Subtotal: ${subtotal}</p>
       <p></p>
-    </div>
+    </CartInfoContainer>
   );
 }

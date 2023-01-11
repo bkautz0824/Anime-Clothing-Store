@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Container } from './Home';
 import axios from 'axios';
 import ProductCard from '../components/ProductCard';
+import { Link } from 'react-router-dom';
+import translatedNames from '../resources/translated-names.json'
 
 
 export const ShoppingContainer = styled.div`
@@ -29,9 +31,10 @@ export default function Shopping() {
     React.useEffect(() => {
       axios.get("http://localhost:5000/products/get-all-products" )
       .then((res)=>{ 
-      setProductList(res.data)
-        console.log(res)
-      
+      let array = res.data
+  
+      setProductList(array)
+        // return productList
       }
       )
       .catch((err)=> console.log(err))
@@ -39,16 +42,25 @@ export default function Shopping() {
   
     }, [])
 
+
+    
+
   return (
     <Container>
        <h1>Shopping</h1> 
        <ShoppingItemsContainer>
         {productList.map((item) => (
+          <Link 
+            to={`/${item.id}`}
+          >
             <ProductCard
-            name={item.category}
-            price={item.current_price}
-            image={item.image}
-            />
+              id={item.id}
+              name={item.category}
+              price={item.current_price}
+              image={item.image}
+              />
+          </Link>
+            
         ))}
        </ShoppingItemsContainer>
        

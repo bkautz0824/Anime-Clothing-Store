@@ -9,16 +9,22 @@ import styled from 'styled-components'
 const CartPage = styled.div`
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
+    width: 80%;
 `
 const CartItemsDisplay = styled.div`
     display: flex;
     flex-direction: column;
+    border: 1px solid black;
+    margin-top: 1rem;
 `
 
 interface CartItemsProps {
     productInfo: any,
     quantity: number,
 }
+
+
 
 interface Props {
 

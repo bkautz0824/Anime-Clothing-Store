@@ -3,9 +3,7 @@ import express from "express";
 import Product from "../models/product.mjs"
 import User from "../models/user.mjs";
 import _ from "lodash"
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-const itemList = require("../resources/item-list.json");
+
 
 
 const productRouter = express.Router()
@@ -40,6 +38,24 @@ const getAllProducts = async(req, res) => {
   return res.send(products)
 }
 productRouter.get('/get-all-products', getAllProducts)
+
+
+const getProductById = async(req, res) =>{
+  if (!mongoose.isValidObjectId(req.params.id)) return res.status(401).send('ID input is empty');
+
+  try{
+    return await Product.findOne({ _id: req.params.id })
+    .then((item) => res.send(item))
+  }
+  catch(err){
+    return res.status(404).send('Product not found')
+  }
+
+}
+
+productRouter.get('/:id', getProductById)
+
+
 
 
 
