@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { Container } from './Home';
 import axios from 'axios';
 import ProductCard from '../components/ProductCard';
-import { Link } from 'react-router-dom';
+
 import translatedNames from '../resources/translated-names.json'
 
 
 export const ShoppingContainer = styled.div`
   width: 100%;
-  height: 3000px;
+  min-height: 100vh;
   text-align: center;
   display: flex;
   /* align-items: center; */
@@ -25,42 +25,43 @@ export const ShoppingItemsContainer = styled.div`
     flex-wrap: wrap;
 `
 
-export default function Shopping() {
+const ListItemContianer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export default function Shopping({user}) {
     const [productList, setProductList] = React.useState([])
-    console.log(productList)
+    
+
     React.useEffect(() => {
       axios.get("http://localhost:5000/products/get-all-products" )
       .then((res)=>{ 
       let array = res.data
-  
       setProductList(array)
         // return productList
-      }
+        }
       )
       .catch((err)=> console.log(err))
-  
-  
     }, [])
 
-
-    
+  
 
   return (
     <Container>
        <h1>Shopping</h1> 
-       <ShoppingItemsContainer>
-        {productList.map((item) => (
-          <Link 
-            to={`/${item.id}`}
-          >
+       <ShoppingItemsContainer  >
+        {productList.length > 0 && productList.map((item) => (
+
             <ProductCard
-              id={item.id}
+              key={item._id}
+              user={user}
+              id={item._id}
               name={item.category}
               price={item.current_price}
               image={item.image}
               />
-          </Link>
-            
+      
         ))}
        </ShoppingItemsContainer>
        

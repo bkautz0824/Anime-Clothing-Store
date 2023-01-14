@@ -22,21 +22,42 @@ const CartItemsDisplay = styled.div`
 interface CartItemsProps {
     productInfo: any,
     quantity: number,
+    user: any
 }
 
 
+const Cart:React.FunctionComponent<CartItemsProps> = ({user}) => {
 
-interface Props {
-
-}
-
-
-const Cart:React.FunctionComponent<Props> = () => {
-    const [user, setUser] = React.useState<any>()
     const [cart, setCart] = React.useState<Array<CartItemsProps>>()
+    // const [cartChange, setCartChange] = React.useState<Boolean>(false)
 
     React.useEffect(() => {
-        getOneUser("639c925e2db1be4119cd8b16").then((res) => 
+        getOneUser(user._id).then((res) => 
+            {   
+                let newCart:Array<any> = []
+                res.data.cart.forEach((item:any) => 
+                {
+                    const doesExist = newCart.findIndex(({productInfo}) => item._id === productInfo._id)
+                    console.log(doesExist)
+                    if(doesExist === -1) {
+                        newCart.push({
+                        productInfo: item,
+                        quantity: 1
+                    })
+                    return 
+                }
+                    newCart[doesExist].quantity = newCart[doesExist].quantity + 1
+                }
+            )
+                setCart(newCart)
+            }
+        )
+        
+    }, [])
+
+    const cartDidChange = () => {
+        // setCartChange(true)
+        getOneUser(user._id).then((res) => 
             {   
                 let newCart:Array<any> = []
                 res.data.cart.forEach((item:any) => 
@@ -54,37 +75,33 @@ const Cart:React.FunctionComponent<Props> = () => {
                 }
                 )
                 setCart(newCart)
-                setUser(res.data)
             }
         )
-    }, [])
+    }
 
   return (
 
-
     <CartPage>
         <CartItemsDisplay>
-        <h2>Your Items</h2>
-        {user && user.cart.map((item:any) => 
-
+        { 
+        cart && cart.map((item:any) => 
             
             <CartProductCard 
-            {..._.pick(item, ["name", "current_price", "image"])}
-            // name={item.name}
-            // current_price={item.current_price}
-            // image={item.image}
-            />
-        )}
+                cartItemInfo={item}
+                user={user}
+                handleCartChange={cartDidChange}
+                />
+            
+             )
+        }
+
         </CartItemsDisplay>
-        <div>
-            {user && 
-            <CartInformation
-            cart={user.cart}
-             />
-             }
-       
-        </div>
-    </CartPage>
+        { 
+        cart && <CartInformation
+            cart={cart}
+        />
+        }
+        </CartPage>
   )
 }
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import { getOneProduct } from '../api-helper/product-requests'
 import styled from 'styled-components';
+import ProductInfo from '../components/ProductPage/ProductInfo';
 
 const ProductImage = styled.img`
   width: 50%;
@@ -8,12 +9,7 @@ const ProductImage = styled.img`
   margin-right: 1rem;
 `;
 
-const InfoContainer = styled.div`
-    width: 50%;
-  height: auto;
-  margin-left: 1rem;
 
-`
 
 const ContentContainer = styled.div`
     width: 90%;
@@ -50,10 +46,10 @@ const ProductPage:React.FunctionComponent<ProductProps> = () => {
         {item && 
         <ContentContainer>
             <ProductImage src={item.image}/>
-            <InfoContainer>
-                <h3>{item.name}</h3>
-                
-            </InfoContainer>
+            <ProductInfo
+                item={item}
+            />
+            
         </ContentContainer>
         }
         
