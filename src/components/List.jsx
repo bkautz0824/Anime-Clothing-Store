@@ -29,6 +29,7 @@ const List = () => {
               name={item.category}
               price={item.current_price}
               image={item.image}
+              id={item._id}
               // image={require(`../${item.image}`)}
               />
               : null
@@ -43,6 +44,7 @@ const List = () => {
                   name={item.category}
                   price={item.current_price}
                   image={item.image}
+                  id={item._id}
                   // image={require(`../${item.image}`)}
                   />
                 : null
@@ -56,6 +58,7 @@ const List = () => {
                   name={"Pajamas"}
                   price={item.current_price}
                   image={item.image}
+                  id={item._id}
                   // image={require(`../${item.image}`)}
                   />
                 : null
@@ -69,6 +72,7 @@ const List = () => {
                   name={item.category}
                   price={item.current_price}
                   image={item.image}
+                  id={item._id}
                   // image={require(`../${item.image}`)}
                   />
                 : null

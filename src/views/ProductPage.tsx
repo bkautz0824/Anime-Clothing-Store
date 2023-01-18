@@ -2,6 +2,7 @@ import React from 'react'
 import { getOneProduct } from '../api-helper/product-requests'
 import styled from 'styled-components';
 import ProductInfo from '../components/ProductPage/ProductInfo';
+import { useParams } from 'react-router-dom';
 
 const ProductImage = styled.img`
   width: 50%;
@@ -31,8 +32,11 @@ type ProductProps = {
 const ProductPage:React.FunctionComponent<ProductProps> = () => {
     const [item, setItem] = React.useState<any>()
 
+    const {id} = useParams()
+    console.log(id)
+ 
     React.useEffect(() => {
-        getOneProduct('639ced329d9dccf825e80a62')
+        getOneProduct(`${id}`)
         .then((res) => {
             console.log(res.data)
             setItem(res.data)

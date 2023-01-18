@@ -45,6 +45,7 @@ const Product = mongoose.model("Product", new mongoose.Schema({
         type: {S:Number, M:Number, L:Number, XL:Number}
     },
     
+    
 
 
 }, snakeCaseStamps 

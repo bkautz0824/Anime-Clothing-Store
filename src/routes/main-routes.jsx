@@ -18,7 +18,7 @@ const MainRoutes = ({user}) => {
             element: <Shopping user={user}/>
         },
         {
-            path: '/product-page',
+            path: '/:id',
             element: <ProductPage user={user}/>
         },
         {

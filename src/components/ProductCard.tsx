@@ -42,7 +42,7 @@ interface ProductCardProps {
 
 const ProductCard:React.FunctionComponent<ProductCardProps> = ({ user, id, name, price, image }) => {
   const [imageIsLoaded, setImageIsLoaded] = React.useState(false) 
-
+ 
   return(
     <ProductItem style={imageIsLoaded ? {} : {display:"none"}}>
       <Link to={`/${id}`}
