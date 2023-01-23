@@ -10,8 +10,6 @@ const ProductImage = styled.img`
   margin-right: 1rem;
 `;
 
-
-
 const ContentContainer = styled.div`
     width: 90%;
     margin: 2rem 2rem;
@@ -52,6 +50,7 @@ const ProductPage:React.FunctionComponent<ProductProps> = () => {
             <ProductImage src={item.image}/>
             <ProductInfo
                 item={item}
+                user={id}
             />
             
         </ContentContainer>

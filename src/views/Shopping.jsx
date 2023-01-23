@@ -32,7 +32,7 @@ const ListItemContianer = styled.div`
 
 export default function Shopping({user}) {
     const [productList, setProductList] = React.useState([])
-    
+    console.log(user)
 
     React.useEffect(() => {
       axios.get("http://localhost:5000/products/get-all-products" )
