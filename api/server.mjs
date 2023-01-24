@@ -28,20 +28,20 @@ app.use("/auth", authRouter)
 
 
 
-app.use(function (err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-    // render the error page
-    console.log(err)
-    res.status(err.status || 500);
-    return res.json({
-      message: err.message,
-      error: err
-    });
-  });
+// app.use(function (err, req, res, next) {
+//     // set locals, only providing error in development
+//     res.locals.message = err.message;
+//     res.locals.error = req.app.get('env') === 'development' ? err : {};
+//     // render the error page
+//     console.log(err)
+//     res.status(err.status || 500);
+//     return res.json({
+//       message: err.message,
+//       error: err
+//     });
+//   });
 
-  if (process.env.NODE_ENV === "production") {
+  // if (process.env.NODE_ENV === "production") {
     app.use(express.static("../build"));
     app.get('/*', (req, res) => {
     console.log(path)
@@ -54,7 +54,7 @@ app.use(function (err, req, res, next) {
       }
     })
   })
-  }
+  // }
 
 
 
